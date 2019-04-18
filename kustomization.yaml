@@ -1,0 +1,16 @@
+# kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+secretGenerator:
+- name: mysql-pass
+  literals:
+  - password=password
+
+# list of Resource Config to be Applied
+resources:
+  - mysql-pv.yaml
+  - wordpress-pv.yaml
+  - mysql-deployment.yaml
+  - wordpress-deployment.yaml
+
