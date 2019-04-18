@@ -106,6 +106,15 @@ kubeadm join 10.0.0.1:6443 --token 7qvvbg.1v21303zq3052kk2 \
 
 https://kubernetes.io/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/
 
+#### Storage
+
+```console
+sudo mkdir -p srv/data
+sudo chmod -R 777 data
+```
+
+#### Kustomize deploy
+
 ```console
 cat <<EOF >>./kustomization.yaml
   resources:
@@ -113,3 +122,24 @@ cat <<EOF >>./kustomization.yaml
     - wordpress-deployment.yaml
 EOF
 ```
+
+```console
+kubectl apply -k .
+
+kubectl expose deployment wordpress --type="NodePort" --port=80
+```
+
+## Helm
+
+```console
+tar -zxvf helm-v2.12.3-linux-amd64.tar.gz
+mkdir -p ~/bin
+cp ~/Downloads/linux-amd64/helm ~/bin/helm
+export PATH=$PATH:$HOME/bin
+echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+helm init --history-max 200
+
+
+
+
+
